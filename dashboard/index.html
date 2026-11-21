@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FloorPrice — the conservative-bound token launch radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <p class="kicker">Token launch radar &middot; entry no. 7 &middot; snapshot <span id="asof"></span></p>
+  <h1>FloorPrice</h1>
+  <p class="subtitle">The conservative bound. Every protocol below is priced like its
+  category&rsquo;s laggards — the value a farmer can underwrite. Anything above the
+  floor is upside, never the plan.</p>
+  <p class="statline" id="statline"></p>
+</header>
+
+<main>
+  <section class="method" id="method">
+    <h2>How the floor is underwritten</h2>
+    <p>For each protocol that <strong>records no token</strong>, take its category&rsquo;s
+    tokenized peers — protocols with a market cap and positive TVL — and their
+    market-cap-to-TVL ratios. The snapshot carries no FDV field, so market cap
+    stands in for FDV and the page says so. Ratios are winsorized into the global
+    10th&ndash;90th percentile band, then the <strong>floor multiple is the
+    category&rsquo;s 25th percentile</strong>, shrunk toward the global 25th percentile
+    with a 6-peer weight. A category with one peer barely moves the global floor;
+    a category with fifteen peers mostly speaks for itself. The multiple is clamped
+    to 0.01x&ndash;1.50x.</p>
+    <p>Implied floor value = TVL &times; floor multiple &times; survival &times; breadth.
+    <strong>Survival</strong> is age only: under 90 days 0.75, 90&ndash;364 days 0.85,
+    1&ndash;3 years 0.95, over 3 years 1.00, unknown listing date 0.85. A small discount
+    for very young protocols lives inside that factor. <strong>Breadth</strong> is
+    chain count: 1 chain 0.92, 2 chains 0.97, 3 or more 1.00. There is deliberately
+    <strong>no momentum term</strong>: a floor that rises with hype is not a floor.
+    The seven-day change is shown for context and never enters the price.</p>
+    <p>The board also carries each row&rsquo;s <strong>median-implied value</strong> — the
+    same formula at the category&rsquo;s shrunk median multiple — so the reader can see
+    floor against typical at a glance. The floor is a pricing bound, not a promise:
+    a protocol on this board may still have a token its record does not carry, and
+    products of live tokens (wrapped, staked and bridged variants, bridge and
+    exchange categories, exchange-prefixed names) are set aside, never ranked.</p>
+    <p class="figures" id="figures"></p>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button type="button" data-tab="radar" class="active">Radar board</button>
+    <button type="button" data-tab="live">Already trading</button>
+  </nav>
+
+  <section class="controls" id="controls">
+    <label>Search <input id="search" type="search" placeholder="protocol or slug" autocomplete="off"></label>
+    <label>Category <select id="category"><option value="">All categories</option></select></label>
+    <label class="check"><input id="watchonly" type="checkbox"> Watchlist only</label>
+    <span class="count" id="count"></span>
+  </section>
+
+  <section id="detail" class="detail" hidden></section>
+
+  <section id="boardwrap">
+    <table id="board">
+      <thead><tr>
+        <th class="num">#</th><th>Protocol</th><th>Category</th><th>Chains</th>
+        <th class="num">TVL</th><th class="num">7d</th>
+        <th class="num">Floor implied</th><th class="num">Median implied</th>
+        <th class="num">Floor discount</th><th>List</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="footnote">Rank 1 is the highest floor value. &ldquo;Records no token&rdquo; means the
+    snapshot&rsquo;s record carries no market cap, CoinGecko id or symbol — it is not proof
+    the protocol has none. Farm steps are risk-first: each row caps the position, states
+    what would have to be true, and names its exit rules.</p>
+  </section>
+
+  <section id="livewrap" hidden>
+    <table id="livetable">
+      <thead><tr>
+        <th>Protocol</th><th>Category</th><th>Chains</th>
+        <th class="num">TVL</th><th class="num">Market cap</th><th class="num">7d</th>
+      </tr></thead>
+      <tbody id="liverows"></tbody>
+    </table>
+    <p class="footnote">Protocols that already trade, shown at the market&rsquo;s own value.
+    They are never ranked as launches and never priced by the floor model.</p>
+  </section>
+</main>
+
+<footer>
+  <p>FloorPrice &middot; model floorprice-1 &middot; deterministic from the sealed snapshot:
+  two runs write byte-identical output. Built by an AI agent for the make.fun token
+  launch radar bounty.</p>
+</footer>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

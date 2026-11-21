@@ -1,0 +1,76 @@
+/* FloorPrice — the auditor's desk: light gray paper, serif display type,
+   ruled lines, red pencil for the numbers that matter. No network, no fonts
+   fetched: Georgia and the system serif stack only. */
+:root {
+  --paper: #f2efe8;
+  --ink: #211d18;
+  --muted: #6d675c;
+  --rule: #c9c2b2;
+  --red: #a92c1d;
+  --red-soft: #f6e3df;
+  --card: #faf8f2;
+  --row: #e9e4d6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif; font-size: 16px; line-height: 1.5;
+}
+.masthead { max-width: 1080px; margin: 0 auto; padding: 34px 24px 10px; border-bottom: 3px double var(--ink); }
+.kicker { margin: 0 0 4px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0; font-size: 64px; line-height: 1; font-weight: 700; letter-spacing: -0.01em; }
+h1::after { content: " ✎"; color: var(--red); font-size: 40px; }
+.subtitle { max-width: 760px; font-size: 18px; font-style: italic; margin: 10px 0 6px; }
+.statline { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+.statline b { color: var(--red); }
+main { max-width: 1080px; margin: 0 auto; padding: 0 24px 40px; }
+.method { border-bottom: 1px solid var(--rule); padding: 18px 0 14px; }
+.method h2 { font-size: 20px; margin: 0 0 8px; }
+.method h2::before { content: "§ "; color: var(--red); }
+.method p { margin: 8px 0; max-width: 860px; }
+.figures { font-size: 14px; background: var(--red-soft); border-left: 4px solid var(--red); padding: 8px 12px; }
+.tabs { display: flex; gap: 0; margin: 18px 0 0; }
+.tabs button {
+  font-family: inherit; font-size: 15px; padding: 9px 22px; cursor: pointer;
+  background: transparent; border: 1px solid var(--rule); border-bottom: none;
+  color: var(--muted);
+}
+.tabs button.active { background: var(--card); color: var(--ink); font-weight: 700; box-shadow: inset 0 3px 0 var(--red); }
+.controls {
+  display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+  background: var(--card); border: 1px solid var(--rule); padding: 10px 14px;
+}
+.controls label { font-size: 14px; }
+.controls input[type="search"], .controls select {
+  font-family: inherit; font-size: 14px; padding: 6px 8px; margin-left: 6px;
+  border: 1px solid var(--rule); background: #fff; color: var(--ink);
+}
+.check input { accent-color: var(--red); }
+.count { margin-left: auto; font-size: 14px; color: var(--muted); }
+table { width: 100%; border-collapse: collapse; background: var(--card); font-size: 14.5px; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+th { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--ink); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+td.num { font-variant-numeric: tabular-nums; }
+tbody tr:hover { background: var(--row); }
+.floor { font-weight: 700; color: var(--red); }
+.discount { color: var(--red); }
+.watch { color: var(--red); font-weight: 700; }
+.slug { color: var(--muted); font-size: 12.5px; }
+.namecell a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--red); cursor: pointer; }
+.footnote { font-size: 13px; color: var(--muted); font-style: italic; }
+.detail { background: var(--card); border: 1px solid var(--rule); border-top: 4px solid var(--red); padding: 18px 22px; margin: 16px 0; }
+.detail h2 { margin: 0 0 2px; font-size: 28px; }
+.detail h2 .slug { font-size: 15px; }
+.detail .back { font-size: 14px; color: var(--red); cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; text-decoration: underline; }
+.detail h3 { font-size: 16px; margin: 18px 0 6px; border-bottom: 1px solid var(--rule); padding-bottom: 4px; }
+.detail table { font-size: 14px; }
+.detail td:first-child { color: var(--muted); width: 46%; }
+.detail ol { margin: 6px 0; padding-left: 22px; }
+.detail ol li { margin: 8px 0; }
+.detail .verdict { background: var(--red-soft); border-left: 4px solid var(--red); padding: 10px 12px; font-style: italic; }
+footer { max-width: 1080px; margin: 0 auto; padding: 0 24px 30px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule); }
+@media (max-width: 760px) {
+  h1 { font-size: 44px; }
+  th:nth-child(4), td:nth-child(4), th:nth-child(6), td:nth-child(6) { display: none; }
+}
